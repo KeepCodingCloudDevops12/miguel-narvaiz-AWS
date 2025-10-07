@@ -35,7 +35,7 @@ cd miguel-narvaiz-AWS
 ````
 
 2. Configuración de la Región (Nota Importante)
-La plantilla está configurada por defecto para desplegarse en N. Virginia (us-east-1), leyendo el valor del archivo terraform.tfvars.
+La plantilla está configurada por defecto para desplegarse en N. Virginia (us-east-1), leyendo el valor del archivo **terraform.tfvars**.
 
 Si **NO** deseas cambiar la región: No necesitas hacer nada; continúa al paso 3.
 
