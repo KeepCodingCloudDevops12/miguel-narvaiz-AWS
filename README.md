@@ -1,114 +1,81 @@
 # 🚀 Práctica Final Keepcoding AWS: Website Estático con Terraform en S3
+Este repositorio contiene la solución a la Práctica Final del Bootcamp de AWS de Keepcoding. Se utiliza Terraform para desplegar un sitio web estático simple alojado en un bucket de AWS S3.
 
-Este repositorio contiene la solución a la Práctica Final del Bootcamp de AWS de Keepcoding. Se utiliza **Terraform** para desplegar un sitio web estático simple alojado en un bucket de **AWS S3** en la región **N. Virginia** (`us-east-1`).
+La plantilla utiliza:
 
-El diseño del sitio web utiliza el framework **Pico.css** para un aspecto moderno, ligero y con soporte para **Modo Oscuro (Dark Mode)**.
+Nombre de Bucket Aleatorio: Usa el recurso random_pet para generar un nombre único, evitando conflictos de estado y errores de timeout (Error: creating S3 Bucket).
 
----
+Seguridad Moderna: Implementa los estándares actuales de S3 (BucketOwnerEnforced y BlockPublicPolicy=false) para asegurar que el despliegue de la política pública se realice sin errores 403 AccessDenied.
 
-## 📋 Requisitos Previos
+📋 Requisitos Previos
+Asegúrate de tener instalado y configurado lo siguiente:
 
-Antes de ejecutar el código de Terraform, asegúrate de tener instalado y configurado lo siguiente:
+Terraform CLI: Versión 1.0 o superior.
 
-1.  **Terraform CLI:** Versión 1.0 o superior.
-2.  **AWS CLI:** Configurado y autenticado en tu terminal.
-3.  **Credenciales de AWS:** El usuario de IAM configurado debe tener los permisos necesarios para gestionar los recursos S3, incluyendo `s3:PutBucketPolicy` y el manejo de los Bloques de Acceso Público.
-
----
-
-## 📂 Estructura del Proyecto
-
-El proyecto se compone de los siguientes archivos:
+AWS CLI: Configurado y autenticado con un usuario que tenga permisos para crear recursos S3 en la región elegida.
 
 ````
 .
-├── main.tf             # Plantilla principal de Terraform.
-├── index.html          # Página principal del sitio web.
+├── main.tf             # Plantilla principal con la lógica del despliegue y el nombre aleatorio.
+├── terraform.tfvars    # Archivo que define la variable de región (por defecto, us-east-1).
+├── index.html          # Página principal del sitio web con estilo Pico.css.
 ├── error.html          # Página personalizada de error 404.
-└── README.md           # Instrucciones de ejecución y evaluación.
+└── README.md           # Este documento.
 ````
 
----
-
-## ⚙️ Configuración y Despliegue
-
+⚙️ Configuración y Despliegue
 Sigue estos pasos en tu terminal para desplegar la infraestructura.
 
-### 1. Clonación del Repositorio
-
+1. Clonación del Repositorio
 Clona este repositorio de GitHub y navega al directorio del proyecto:
 
-```bash
-git clone https://github.com/KeepCodingCloudDevops12/miguel-narvaiz-AWS
+````
+git clone https://github.com/KeepCodingCloudDevops12/miguel-narvaiz-AWS.git
 cd miguel-narvaiz-AWS
 ````
 
+2. Configuración de la Región (Nota Importante)
+La plantilla está configurada por defecto para desplegarse en N. Virginia (us-east-1), leyendo el valor del archivo terraform.tfvars.
 
-### 2. Inicialización
+Si **NO** deseas cambiar la región: No necesitas hacer nada; continúa al paso 3.
 
-Inicializa Terraform para descargar el proveedor de AWS y preparar el entorno.
+Si deseas anular la región (ej: Europa): Puedes editar el archivo terraform.tfvars o usar la línea de comandos.
 
-```bash
+````
+# Ejemplo para desplegar en Irlanda (eu-west-1):
+terraform apply -var 'aws_region=eu-west-1'
+````
+
+3. Inicialización
+Inicializa Terraform para descargar el proveedor de AWS.
+
+````
 terraform init
 ````
-
-3. Planificación
-Ejecuta el plan para ver qué recursos serán creados por Terraform.
-
-````
-terraform plan
-````
-
-4. Aplicación (Despliegue)
-Aplica los cambios para crear la infraestructura en AWS. Confirma con yes cuando se te solicite.
-
-````
-terraform apply
-````
-
 ✅ Evaluación y Acceso
-Una vez que la aplicación finalice, Terraform imprimirá los Endpoints de conexión.
+Una vez que la aplicación finalice exitosamente, Terraform imprimirá los Endpoints de conexión.
 
-Output Requerido
-El output solicitado por la práctica es:
+Outputs (Ejemplos)
 ````
-terraform output website_endpoint
+#bucket_final_name = "kcmikelab-quick-chamois"
+#website_endpoint = "kcmikelab-quick-chamois.s3-website-us-east-1.amazonaws.com"
+#website_url = "http://kcmikelab-quick-chamois.s3-website-us-east-1.amazonaws.com"
 ````
-
-# Cómo Acceder y Probar el Sitio
+Cómo Acceder y Probar
 
 1.- Página Principal (index.html):
-
-
-  Utiliza la URL completa proporcionada en el output "website_url" para acceder al sitio.
+ + Copiar en tu navegador el **website_url** obtenido en los outputs despues de la ejecución y comprobar la pagina principal
+ + verificar que te muestre la pagina home 
 
 2.- Página de Error (error.html - Prueba de 404):
-
-  Para probar la página de error personalizada, añade una ruta inexistente al final de la URL del sitio 
-
-````
-(Ej: [URL_DEL_SITIO]/recurso-que-no-existe).
-````
-
-Verifica que se muestre la página error.html con el diseño de alerta.
+ + Añadir a la URL **/test404**
+ + verificar que muestre la paginar de error
 
 
 🗑️ Limpieza (Destrucción de Recursos)
-Para eliminar todos los recursos de AWS creados por esta práctica y evitar costos, ejecuta el siguiente comando y confirma con *yes*:
+Para eliminar todos los recursos creados por esta práctica y evitar costos en tu cuenta de AWS, ejecuta:
 
 ````
 terraform destroy
 ````
-
-
-
-
-
-
-
-
-
-
-
-
-
+Confirma con **yes**.
