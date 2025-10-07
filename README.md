@@ -32,9 +32,19 @@ El proyecto se compone de los siguientes archivos:
 
 ## ⚙️ Configuración y Despliegue
 
-Sigue estos pasos en tu terminal para desplegar la infraestructura. Asegúrate de estar en el directorio que contiene `main.tf`.
+Sigue estos pasos en tu terminal para desplegar la infraestructura.
 
-### 1. Inicialización
+### 1. Clonación del Repositorio
+
+Clona este repositorio de GitHub y navega al directorio del proyecto:
+
+```bash
+git clone https://github.com/KeepCodingCloudDevops12/miguel-narvaiz-AWS
+cd miguel-narvaiz-AWS
+````
+
+
+### 2. Inicialización
 
 Inicializa Terraform para descargar el proveedor de AWS y preparar el entorno.
 
@@ -42,14 +52,14 @@ Inicializa Terraform para descargar el proveedor de AWS y preparar el entorno.
 terraform init
 ````
 
-2. Planificación
+3. Planificación
 Ejecuta el plan para ver qué recursos serán creados por Terraform.
 
 ````
 terraform plan
 ````
 
-3. Aplicación (Despliegue)
+4. Aplicación (Despliegue)
 Aplica los cambios para crear la infraestructura en AWS. Confirma con yes cuando se te solicite.
 
 ````
